@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Click [this link](https://wu-geoff.github.io/the-shoppies) to open the actual website.
 
+The [OMDB](https://www.omdbapi.com/) apikey is redacted due to privacy reasons, so if you want to run it locally, you need to paste your own OMDB apikey to the corresponding position at omdb.service.ts.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
