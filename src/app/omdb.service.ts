@@ -21,7 +21,7 @@ export class OmdbService {
   }
 
   getMovie(name: string): Observable<object> {
-    const apikey = "59657f00", url = "https://www.omdbapi.com", type = "movie";
+    const apikey = "", url = "https://www.omdbapi.com", type = "movie"; //The apikey is redacted due to privacy reasons.
     const options = {
       params: {
         "apikey": apikey,
