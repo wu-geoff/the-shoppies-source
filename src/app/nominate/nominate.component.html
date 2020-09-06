@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div *ngIf="nominated.length == maxNominations" class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Thank you!</h4>
+        <p>You have successfully nominated {{maxNominations}} movies, thank you for your participation!</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="row mt-4">
+        <div class="col border border-dark rounded">
+            <h3>Movie Title</h3>
+            <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <fa-icon [icon]="faSearch"></fa-icon>
+                    </span>
+                </div>
+                <input class="form-control" #movie_title (keyup)="searchTerm.next($event.target.value)"
+                    placeholder="Search Movies...">
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col border border-dark rounded mr-3">
+            <h3>Results for &quot;{{movie_title.value}}&quot;</h3>
+            <div *ngIf="movies != undefined && moviesFound">
+                <ul>
+                    <li *ngFor="let m of movies" class="mb-2">
+                        {{m.Title}} ({{m.Year}}) <button type="button" data-toggle="modal" data-target="#doneModal"
+                            [disabled]="alreadyNominated(m)" (click)="onNominate(m)"
+                            class="btn btn-outline-primary btn-sm">Nominate</button>
+                        <div *ngIf="nominationDone == true" id="doneModal" class="modal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Thank you!</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>You have successfully nominated {{maxNominations}} movies, thank you for your participation!
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="movie_title.value == ''">
+                <p>Enter the name to find your favourite movie!</p>
+            </div>
+            <div *ngIf="movie_title.value.length > 0 && !moviesFound">
+                <p>Can't find the movie, maybe try to search another one?</p>
+            </div>
+        </div>
+        <div class="col border border-dark rounded ml-3">
+            <h3>Nominations (Up to {{maxNominations}})</h3>
+            <div *ngIf="nominated.length > 0; else noNominations">
+                <ul>
+                    <li *ngFor="let n of nominated" class="mb-2">
+                        {{n.Title}} ({{n.Year}}) <button type="button" (click)="onRemove(n)"
+                            class="btn btn-outline-danger btn-sm">Remove</button>
+                    </li>
+                </ul>
+            </div>
+            <ng-template #noNominations>Nominate your favourite movies!</ng-template>
+        </div>
+    </div>
+</div>
